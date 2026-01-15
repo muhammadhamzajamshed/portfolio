@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export function Hero() {
   return (
-    <section className="ml-64 min-h-screen flex items-center justify-center px-8 py-20">
+    <section className="px-4 pt-20 pb-16 md:ml-64 md:min-h-screen md:flex md:items-center md:justify-center md:px-8 md:py-20">
       <div className="max-w-4xl w-full">
         <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">Senior Full Stack Developer</h2>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl">

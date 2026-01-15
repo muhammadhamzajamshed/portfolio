@@ -125,7 +125,7 @@ export function ExperienceEducation() {
   )
 
   return (
-    <section id="experience" className="ml-64 px-8 py-20 bg-background">
+    <section id="experience" className="px-4 py-16 bg-background md:ml-64 md:px-8 md:py-20">
       <div className="max-w-4xl mx-auto">
         <h3 className="text-3xl font-bold text-foreground mb-12">Experience</h3>
 

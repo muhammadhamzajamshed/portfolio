@@ -8,7 +8,7 @@ export default function BlogPostContent({ post }) {
   }
 
   return (
-    <article className="ml-64 px-8 py-20 bg-background">
+    <article className="px-4 py-16 bg-background md:ml-64 md:px-8 md:py-20">
       <div className="max-w-4xl mx-auto">
         {/* Back link */}
         <Link href="/blog" className="text-primary hover:text-primary/80 text-sm font-medium mb-8 inline-block">

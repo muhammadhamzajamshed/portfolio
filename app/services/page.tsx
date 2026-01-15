@@ -46,7 +46,7 @@ export default function ServicesPage() {
   return (
     <main className="w-full">
       <Navigation />
-      <section className="ml-64 px-8 py-20 bg-background">
+      <section className="px-4 py-16 bg-background md:ml-64 md:px-8 md:py-20">
         <div className="max-w-4xl mx-auto">
           <div className="mb-16">
             <h1 className="text-4xl font-bold text-foreground mb-4">Services</h1>

@@ -4,9 +4,12 @@ import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
+import { Menu } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState("about")
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -31,49 +34,90 @@ export function Navigation() {
         element.scrollIntoView({ behavior: "smooth" })
       }
     }
+    // Close mobile menu after navigation
+    setMobileMenuOpen(false)
+  }
+
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false)
   }
 
   const navItemClass = (isActive: boolean) =>
-    `block text-sm tracking-wider transition-colors ${
+    `block text-sm tracking-wider transition-colors cursor-pointer ${
       isActive ? "text-primary border-l-2 border-primary pl-4" : "text-muted-foreground hover:text-foreground pl-4"
     }`
 
-  return (
-    <nav className="fixed left-0 top-0 h-screen w-64 bg-card border-r border-border px-8 py-12 flex flex-col justify-between">
+  const NavigationContent = () => (
+    <>
       <div>
         <h1 className="text-2xl font-bold text-foreground mb-2">Muhammad Hamza</h1>
         <p className="text-sm text-muted-foreground mb-12">Senior Full Stack Developer</p>
 
         <div className="space-y-4">
-          <button
-            onClick={() => scrollToSection("about")}
-            className={navItemClass(activeSection === "about")}
-          >
-            ABOUT
-          </button>
-          <button
-            onClick={() => scrollToSection("projects")}
-            className={navItemClass(activeSection === "projects")}
-          >
-            PROJECTS
-          </button>
+          {pathname === "/" ? (
+            <button
+              onClick={() => scrollToSection("about")}
+              className={navItemClass(activeSection === "about")}
+            >
+              ABOUT
+            </button>
+          ) : (
+            <Link
+              href="/#about"
+              onClick={() => {
+                setActiveSection("about")
+                handleLinkClick()
+              }}
+              className={navItemClass(activeSection === "about")}
+            >
+              ABOUT
+            </Link>
+          )}
+          {pathname === "/" ? (
+            <button
+              onClick={() => scrollToSection("projects")}
+              className={navItemClass(activeSection === "projects")}
+            >
+              PROJECTS
+            </button>
+          ) : (
+            <Link
+              href="/#projects"
+              onClick={() => {
+                setActiveSection("projects")
+                handleLinkClick()
+              }}
+              className={navItemClass(activeSection === "projects")}
+            >
+              PROJECTS
+            </Link>
+          )}
           <Link
             href="/services"
-            onClick={() => setActiveSection("services")}
+            onClick={() => {
+              setActiveSection("services")
+              handleLinkClick()
+            }}
             className={navItemClass(activeSection === "services")}
           >
             SERVICES
           </Link>
           <Link
             href="/case-studies"
-            onClick={() => setActiveSection("case-studies")}
+            onClick={() => {
+              setActiveSection("case-studies")
+              handleLinkClick()
+            }}
             className={navItemClass(activeSection === "case-studies")}
           >
             CASE STUDIES
           </Link>
           <Link
             href="/blog"
-            onClick={() => setActiveSection("blog")}
+            onClick={() => {
+              setActiveSection("blog")
+              handleLinkClick()
+            }}
             className={navItemClass(activeSection === "blog")}
           >
             BLOG
@@ -86,7 +130,14 @@ export function Navigation() {
               CONTACT
             </button>
           ) : (
-            <Link href="/#contact" className={navItemClass(false)}>
+            <Link
+              href="/#contact"
+              onClick={() => {
+                setActiveSection("contact")
+                handleLinkClick()
+              }}
+              className={navItemClass(activeSection === "contact")}
+            >
               CONTACT
             </Link>
           )}
@@ -110,6 +161,7 @@ export function Navigation() {
         <Link
           href="/cv.pdf"
           download
+          onClick={handleLinkClick}
           className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium text-center text-sm hover:opacity-90 transition-opacity"
         >
           Download CV
@@ -149,6 +201,37 @@ export function Navigation() {
           </a>
         </div>
       </div>
-    </nav>
+    </>
+  )
+
+  return (
+    <>
+      {/* Mobile: Hamburger button and menu */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-card border-b border-border px-4 py-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold text-foreground">Muhammad Hamza</h1>
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <button
+                className="p-2 rounded-md hover:bg-muted transition-colors"
+                aria-label="Toggle menu"
+              >
+                <Menu className="h-6 w-6 text-foreground" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-80 p-0">
+              <div className="flex flex-col justify-between h-full px-8 py-12">
+                <NavigationContent />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+
+      {/* Desktop: Fixed sidebar */}
+      <nav className="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-card border-r border-border px-8 py-12 flex-col justify-between z-50">
+        <NavigationContent />
+      </nav>
+    </>
   )
 }

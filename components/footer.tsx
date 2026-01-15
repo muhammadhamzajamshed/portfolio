@@ -1,7 +1,7 @@
 export function Footer() {
   return (
-    <footer className="ml-64 px-8 py-12 bg-card border-t border-border">
-      <div className="max-w-4xl mx-auto flex justify-between items-center">
+    <footer className="px-4 py-8 bg-card border-t border-border md:ml-64 md:px-8 md:py-12">
+      <div className="max-w-4xl mx-auto flex flex-col gap-4 items-start justify-between md:flex-row md:items-center">
         <p className="text-muted-foreground text-sm">© 2025 Muhammad Hamza Jamshed. All rights reserved.</p>
         <div className="flex gap-6">
           <a

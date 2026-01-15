@@ -31,7 +31,7 @@ export function Projects() {
   ]
 
   return (
-    <section id="projects" className="ml-64 px-8 py-20 bg-background">
+    <section id="projects" className="px-4 py-16 bg-background md:ml-64 md:px-8 md:py-20">
       <div className="max-w-4xl mx-auto">
         <h3 className="text-3xl font-bold text-foreground mb-12">Featured Projects</h3>
         <div className="space-y-12">
