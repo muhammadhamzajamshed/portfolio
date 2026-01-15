@@ -2,10 +2,22 @@
 
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+
+// Helper to get the correct image path with basePath for GitHub Pages
+const getImagePath = (path: string) => {
+  // Check if we're in production (GitHub Pages) and need basePath
+  if (typeof window !== 'undefined') {
+    const pathname = window.location.pathname
+    // If pathname starts with /portfolio, we need to prepend it to image paths
+    if (pathname.startsWith('/portfolio') && path.startsWith('/')) {
+      return `/portfolio${path}`
+    }
+  }
+  return path
+}
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState("about")
@@ -147,13 +159,11 @@ export function Navigation() {
       <div className="flex flex-col gap-6">
         <div className="flex justify-center">
           <div className="relative w-20 h-20 rounded-full overflow-hidden border border-border bg-muted ring-2 ring-primary/20 shadow-sm">
-            <Image
-              src="/profile.jpeg"
+            <img
+              src={getImagePath("/profile.jpeg")}
               alt="Profile photo"
-              fill
-              sizes="80px"
-              className="object-cover"
-              priority
+              className="object-cover w-full h-full"
+              loading="eager"
             />
           </div>
         </div>
